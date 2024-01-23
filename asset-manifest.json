@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/goit-react-homework-05-movies/static/css/main.862fd471.css",
+    "main.js": "/goit-react-homework-05-movies/static/js/main.855553c4.js",
+    "static/media/no-cast-image.png": "/goit-react-homework-05-movies/static/media/no-cast-image.12e64bc7efc49e58e460.png",
+    "index.html": "/goit-react-homework-05-movies/index.html",
+    "main.862fd471.css.map": "/goit-react-homework-05-movies/static/css/main.862fd471.css.map",
+    "main.855553c4.js.map": "/goit-react-homework-05-movies/static/js/main.855553c4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.862fd471.css",
+    "static/js/main.855553c4.js"
+  ]
+}
