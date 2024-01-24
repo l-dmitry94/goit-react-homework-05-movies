@@ -1,18 +1,24 @@
 import MoviesList from 'components/MoviesList';
-import { Loading } from 'notiflix';
+import SearchForm from 'components/SearchForm';
+import { Notify, Loading } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.7.min.css';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import API from 'services/movies-api';
 
 const MovieSearch = () => {
-    const[movies, setMovies] = useState(null)
+    const [movies, setMovies] = useState(null);
+    const [inputValue, setInputValue] = useState('');
     const [searchParams, setSearchParams] = useSearchParams();
-    const search = searchParams.get('search');
+    const search = searchParams.get('search') ?? '';
+
+    useEffect(() => {
+        setInputValue(search);
+    }, [search]);
 
     useEffect(() => {
         const movieSearch = async () => {
-            if (search === null) {
+            if (!search) {
                 return;
             }
 
@@ -20,7 +26,12 @@ const MovieSearch = () => {
 
             try {
                 const data = await API.fetchMovieByQuery(search);
-                setMovies(data)
+                if (data?.length === 0) {
+                    setMovies(null);
+                    Notify.failure('Not Found');
+                    return;
+                }
+                setMovies(data);
             } catch (error) {
                 console.log(error.message);
             } finally {
@@ -34,23 +45,22 @@ const MovieSearch = () => {
         event.preventDefault();
 
         const form = event.currentTarget;
+        if (!form.elements.search.value) {
+            return;
+        }
 
-        setSearchParams({ search: form.elements.search.value.toLowerCase() });
-
-        form.reset();
+        setSearchParams({ search: form.elements.search.value });
     };
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="search" />
-                <button type="submit">Search</button>
-            </form>
-            
-            {movies && <MoviesList movies={movies}/>}
-
-            {!movies?.length && search !== "" && <p>Not found</p>}
-            
+            <SearchForm
+                inputValue={inputValue}
+                handleChange={event => setInputValue(event.target.value)}
+                handleSubmit={handleSubmit}
+                type="submit"
+            />
+            {movies && <MoviesList movies={movies} />}
         </>
     );
 };

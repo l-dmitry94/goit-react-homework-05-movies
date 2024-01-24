@@ -1,7 +1,7 @@
 import MoviesItem from './MoviesItem';
 import Styled from './MoviesList.styled';
 
-const {Title, List} = Styled
+const { Title, List } = Styled;
 
 const MoviesList = ({ title, movies }) => {
     const moviesList = movies.map(movie => (
@@ -9,10 +9,14 @@ const MoviesList = ({ title, movies }) => {
     ));
 
     return (
-        <main>
-            {title && <Title>{title}</Title>}
-            <List>{moviesList}</List>
-        </main>
+        <>
+            {movies && (
+                <>
+                    {title && <Title>{title}</Title>}
+                    <List>{moviesList}</List>
+                </>
+            )}
+        </>
     );
 };
 

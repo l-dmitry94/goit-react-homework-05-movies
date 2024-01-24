@@ -32,7 +32,7 @@ const Styled = {
         }
     `,
 
-    Wrapper: styled.div`
+    Wrapper: styled.main`
         padding: 40px 0;
     `
 };
