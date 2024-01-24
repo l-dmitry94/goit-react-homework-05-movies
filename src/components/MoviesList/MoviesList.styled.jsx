@@ -9,6 +9,7 @@ List: styled.ul`
     display: flex;
     flex-wrap: wrap;  
     gap: 24px;
+    margin-top: 40px;
 `
 }
 

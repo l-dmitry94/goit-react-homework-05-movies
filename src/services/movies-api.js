@@ -11,19 +11,28 @@ const instance = axios.create({
 const API = {
     fetchTrendingMovies: async () => {
         const response = await instance.get('/trending/movie/day');
-
         return response.data.results;
     },
 
-    fetchMovieById: async (movieId) => {
-        const response = await instance.get(`/movie/${movieId}`)
-        return response.data
+    fetchMovieById: async movieId => {
+        const response = await instance.get(`/movie/${movieId}`);
+        return response.data;
     },
 
-    fetchMovieCast: async (movieId) => {
+    fetchMovieCast: async movieId => {
         const response = await instance.get(`/movie/${movieId}/credits`);
-        return response.data.cast
-    }
+        return response.data.cast;
+    },
+
+    fetchMovieReviews: async movieId => {
+        const response = await instance.get(`/movie/${movieId}/reviews`);
+        return response.data;
+    },
+
+    fetchMovieByQuery: async query => {
+        const response = await instance.get(`/search/movie?query=${query}`);
+        return response.data.results;
+    },
 };
 
 export default API;

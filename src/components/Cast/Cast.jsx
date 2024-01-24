@@ -1,3 +1,5 @@
+import { Loading } from 'notiflix';
+import 'notiflix/dist/notiflix-3.2.7.min.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import API from 'services/movies-api';
@@ -12,11 +14,14 @@ const Cast = () => {
 
     useEffect(() => {
         const movieCast = async () => {
+            Loading.standard();
             try {
                 const data = await API.fetchMovieCast(movieId);
                 setCast(data);
             } catch (error) {
-                console.log(error);
+                console.log(error.message);
+            } finally {
+                Loading.remove();
             }
         };
 
@@ -32,7 +37,7 @@ const Cast = () => {
         />
     ));
 
-    return <CastList>{castList}</CastList>;
+    return <>{cast && <CastList>{castList}</CastList>}</>;
 };
 
 export default Cast;
